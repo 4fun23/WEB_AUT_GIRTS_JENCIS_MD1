@@ -1,28 +1,29 @@
+const { SelectablePage} = require(".//page_objects/SelectablePage");
+
 describe('homework', () => {
     beforeEach(() => {
       cy.visit('https://demoqa.com/selectable')
     })
   
     it('displays two todo items by default', () => {
-      cy.get("a[id='demo-tab-grid']").click();
-     // cy.get("div[id='row1']").as("Two").click();
-     cy.contains("Two").click();
-     cy.contains("Four").click();
-     cy.contains("Six").click();
-     cy.contains("Eight").click();
-     //validate
-        cy.contains("Two").should('have.class', "active");
-        cy.contains("Four").should('have.class', "active");
-        cy.contains("Six").should('have.class', "active");
-        cy.contains("Eight").should('have.class', "active");
-        
-        cy.contains("One").not('have.class', "active");
-        cy.contains("Three").not('have.class', "active");
-        cy.contains("Five").not('have.class', "active");
-        cy.contains("Seven").not('have.class', "active");
-        cy.contains("Nine").not('have.class', "active");
-    
+//click necessary buttons
+     SelectablePage.gridButton.click();
+     SelectablePage.numberButton("Two").click();
+     SelectablePage.numberButton("Four").click();
+     SelectablePage.numberButton("Six").click();
+     SelectablePage.numberButton("Eight").click();
+//validate active buttons
+        SelectablePage.shouldBeActive("Two");
+        SelectablePage.shouldBeActive("Four");
+        SelectablePage.shouldBeActive("Six");
+        SelectablePage.shouldBeActive("Eight");
 
+        SelectablePage.notActive("One");
+        SelectablePage.notActive("Three");
+        SelectablePage.notActive("Five");
+        SelectablePage.notActive("Seven");
+        SelectablePage.notActive("Nine");
+    
     });
 
 });
